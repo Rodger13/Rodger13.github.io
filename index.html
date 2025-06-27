@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Modelo Matemático</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Header con logo y navegación -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container">
+                    <i class="fas fa-project-diagram logo-icon"></i>
+                    <h1 class="logo">SIMOPLA</h1>
+                </div>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="#" class="nav-link active"><i class="fas fa-calculator"></i> Generador</a></li>
+                        <li><a href="#" class="nav-link"><i class="fas fa-book-open"></i> Guías</a></li>
+                        <li><a href="#" class="nav-link"><i class="fas fa-envelope"></i> Contacto</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!--Fin Header-->
+
+    <div class="container">
+        <main>
+            <!-- Tabla de coeficientes -->
+            <section class="card">
+                <h2>Tabla de coeficientes</h2>
+                <div class="table-container">
+                    <table id="tablaCanonica" class="styled-table">
+                        <thead>
+                            <tr>
+                                <th>Concepto</th>
+                                <th>x₁</th>
+                                <th>x₂</th>
+                                <th>Signo</th>
+                                <th>RHS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bodyTabla">
+                            <tr>
+                                <td><input type="text" placeholder="Restricción 1" class="input-style"></td>
+                                <td><input type="number" step="any" placeholder="0" class="input-coef"></td>
+                                <td><input type="number" step="any" placeholder="0" class="input-coef"></td>
+                                <td>
+                                    <select class="select-style">
+                                        <option value="≤">≤</option>
+                                        <option value="=">=</option>
+                                        <option value="≥">≥</option>
+                                    </select>
+                                </td>
+                                <td><input type="number" step="any" placeholder="0" class="input-coef"></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Función Objetivo (Z)</th>
+                                <td><input type="number" step="any" id="z_x1" placeholder="0" class="input-coef">
+                                </td>
+                                <td><input type="number" step="any" id="z_x2" placeholder="0" class="input-coef">
+                                </td>
+                                <td colspan="2">
+                                    <select id="z_tipo" class="select-style">
+                                        <option value="max">Maximizar</option>
+                                        <option value="min">Minimizar</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="table-actions">
+                    <button onclick="agregarFila()" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Agregar Restricción
+                    </button>
+                    <button onclick="agregarColumna()" class="btn btn-secondary">
+                        <i class="fas fa-plus"></i> Agregar Variable
+                    </button>
+                    <button id="eliminarVariableBtn" class="btn btn-danger">
+                        <i class="fas fa-minus mr-2"></i> Eliminar Variable
+                    </button>
+                </div>
+            </section>
+            <!--fin Tabla de coeficientes-->
+
+            <!--Restricciones especiales-->
+            <section class="card">
+                <div class="special-constraints-container">
+                    <h3>Restricciones especiales</h3>
+                    <div class="constraint-input-group">
+                        <select id="varEsp" class="styled-select">
+                            <option value="x₁">x₁</option>
+                            <option value="x₂">x₂</option>
+                        </select>
+
+                        <select id="opEsp" class="styled-select">
+                            <option value="≥">≥</option>
+                            <option value="=">=</option>
+                            <option value="≤">≤</option>
+                        </select>
+
+                        <input type="number" id="valorEsp" placeholder="Valor" class="styled-input">
+
+                        <button onclick="agregarRestriccionEspecial()" class="btn btn-add">
+                            <i class="fas fa-plus-circle"></i> Agregar
+                        </button>
+                    </div>
+
+                    <div id="listaRestricciones" class="constraints-list"></div>
+                </div>
+            </section>
+
+            <div class="actions">
+                <button onclick="generarModelo()" class="btn btn-generate">
+                    Generar Modelo Matemático
+                </button>
+            </div>
+
+            <div id="resultado" class="result-container"></div>
+        </main>
+    </div>
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo-container">
+                        <i class="fas fa-project-diagram logo-icon"></i>
+                        <h3 class="logo">Simopla</h3>
+                    </div>
+                    <p class="slogan">Modelado lineal simplificado</p>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Recursos</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-file-pdf"></i> Documentación</a></li>
+                        <li><a href="#"><i class="fab fa-github"></i> GitHub</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h4>Contacto</h4>
+                    <p><i class="fas fa-envelope"></i> admroger13@gmail.com</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>© 2025 Simopla. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
