@@ -640,3 +640,57 @@ sub {
 .btn i.far {
     margin-right: 8px;
 }
+
+/* Aviso de orientación */
+.orientation-warning {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 9999;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.warning-content i {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: #4a6bff;
+    animation: pulse 1.5s infinite;
+}
+
+.warning-content h3 {
+    color: white;
+    margin-bottom: 10px;
+}
+
+.warning-content p {
+    color: #ddd;
+}
+
+@keyframes pulse {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(90deg);
+    }
+}
+
+@media (max-width: 768px) and (orientation: portrait) {
+    .orientation-warning {
+        display: flex;
+    }
+
+    /* Opcional: Oculta el contenido principal en vertical */
+    body>*:not(.orientation-warning) {
+        display: none;
+    }
+}

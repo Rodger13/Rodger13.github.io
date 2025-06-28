@@ -285,3 +285,18 @@ document.addEventListener('DOMContentLoaded', () => {
         agregarFila();
     }
 });
+
+
+// Verifica la orientación al cargar y al girar
+function checkOrientation() {
+    if (window.innerWidth < 768 && window.matchMedia("(orientation: portrait)").matches) {
+        document.getElementById('orientation-warning').style.display = 'flex';
+    } else {
+        document.getElementById('orientation-warning').style.display = 'none';
+    }
+}
+
+// Ejecutar al cargar y al cambiar tamaño/orientación
+window.addEventListener('load', checkOrientation);
+window.addEventListener('resize', checkOrientation);
+window.addEventListener('orientationchange', checkOrientation);
